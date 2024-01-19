@@ -19,6 +19,6 @@ OpenWeatherMap uses the location and displays the weather conditions for that lo
 
 
 # Deployed at:
-[https://dakotak92.github.io/Project-1/](https://dakotak92.github.io/Project-1/)https://dakotak92.github.io/Project-1/
+https://dakotak92.github.io/Project-1/
 
 # Application:
