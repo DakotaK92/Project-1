@@ -22,3 +22,9 @@ OpenWeatherMap uses the location and displays the weather conditions for that lo
 https://dakotak92.github.io/Project-1/
 
 # Application:
+Looking for something new?
+![openning screen](https://github.com/DakotaK92/Project-1/assets/46942706/8a17ddc2-95a0-40de-8a19-08acb11694ba)
+
+# Results
+Found something fun!
+![logged in](https://github.com/DakotaK92/Project-1/assets/46942706/f899046d-63c8-41ca-8776-360f3cb6ee63)
