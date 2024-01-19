@@ -18,6 +18,7 @@ let autocomplete; // Autocomplete object
 let cityName; // City name
 let units = "imperial"; // Default units (you can change this as needed)
 let days, hours, minutes, seconds; // Declare time variables here
+let pastCitySearches = [];
 
 
 function showModal(message) { // Function to show modal
@@ -235,7 +236,12 @@ document.addEventListener("DOMContentLoaded", function () { // When the page loa
         autocomplete = new google.maps.places.Autocomplete(locationInput); // Initialize autocomplete here
     };
     document.head.appendChild(script); // Append the <script> element to the <head> element
-
+    
+    const storedPastCitySearches = localStorage.getItem("pastCitySearches");
+    if (storedPastCitySearches) {
+        pastCitySearches = JSON.parse(storedPastCitySearches);
+        updatePastCitySearchList(); // Call a function to update the list
+    }
     // Function to show the weather and info containers
     function showContainers() {  // Function to show the weather and info containers
         weatherContainer.style.display = "block"; // Show the weather container
@@ -268,6 +274,34 @@ document.addEventListener("DOMContentLoaded", function () { // When the page loa
             showModal("Please enter a city name."); 
             return;
         }
+
+        if (cityName.trim() && !pastCitySearches.includes(cityName)) { // Check for duplicates
+            if (pastCitySearches.length >= 5) {
+                pastCitySearches.shift(); // Remove the oldest entry if the limit is reached
+            }
+            pastCitySearches.push(cityName); // Add the city to the list
+            localStorage.setItem("pastCitySearches", JSON.stringify(pastCitySearches)); // Update local storage
+            updatePastCitySearchList(); // Update the list of past city searches
+        }
+    
+        const pastCityList = document.getElementById("pastCityList");
+    pastCityList.innerHTML = ""; // Clear the existing list
+
+    pastCitySearches.forEach((pastCity) => {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a"); // Create an anchor element
+        anchor.textContent = pastCity;
+        anchor.href = "#"; // Add a placeholder href attribute
+
+        // Add a click event listener to the anchor element to fill the search input
+        anchor.addEventListener("click", function () {
+            locationInput.value = pastCity; // Fill the search input with the past city
+        });
+
+        listItem.appendChild(anchor); // Append the anchor element to the list item
+        pastCityList.appendChild(listItem);
+    });
+
 
         // Show the weather and info containers
         showContainers();
@@ -325,6 +359,26 @@ document.addEventListener("DOMContentLoaded", function () { // When the page loa
         } // Call the function to fetch events with pagination
     });
 });
+
+function updatePastCitySearchList() {
+    const pastCityList = document.getElementById("pastCityList");
+    pastCityList.innerHTML = ""; // Clear the existing list
+
+    pastCitySearches.forEach((pastCity) => {
+        const listItem = document.createElement("li");
+        const anchor = document.createElement("a"); // Create an anchor element
+        anchor.textContent = pastCity;
+        anchor.href = "#"; // Add a placeholder href attribute
+
+        // Add a click event listener to the anchor element to fill the search input
+        anchor.addEventListener("click", function () {
+            locationInput.value = pastCity; // Fill the search input with the past city
+        });
+
+        listItem.appendChild(anchor); // Append the anchor element to the list item
+        pastCityList.appendChild(listItem);
+    });
+}
 
 function fetchWeather(cityName) { // Function to fetch weather data
     const apiKey = '73160f3be8182853a0dc7e278c3fdb6a'; 

@@ -10,11 +10,11 @@
             // Your code to initialize the map goes here
         }
     </script>
-    <script src="./js/index.js"></script>
+    <script src="./assets/js/script.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Poppins&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" type="text/css" href="./css/style.css">
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
 </head>
 
 <body>
@@ -41,9 +41,14 @@
             <label for="date">Select Date:</label>
             <input type="date" id="date" name="date">
             <button id="searchButton">Search Events</button>
+            
+            <div id="pastCitySearches">
+                <h2>Past City Searches:</h2>
+                <ul id="pastCityList"></ul>
+            </div>
         </div>
 
-        <div class="weather-container">
+        <div class="weather-container" style="display: none;">
             <div class="weather__body">
                 <h1 class="weather__city"><!--Weather in [City Name]--></h1>
                 <div class="weather__datetime">
@@ -103,7 +108,7 @@
             </div>
         </div>
              
-        <div class="info-container">
+        <div class="info-container" style="display: none;">
             <div class="details-container" id="eventResults">
                 <ul>
                     <li>
